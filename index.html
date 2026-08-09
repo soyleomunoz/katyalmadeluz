@@ -130,7 +130,7 @@ section>.contenedor{position:relative;z-index:1}
 @keyframes respirar{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.07);opacity:1}}
 /* Aura que "respira" detrás del texto del hero en móvil */
 .hero-aura-movil{display:none}
-@keyframes respirar-centrado{0%,100%{transform:translateX(-50%) scale(1);opacity:.75}50%{transform:translateX(-50%) scale(1.1);opacity:1}}
+@keyframes respirar-centrado{0%,100%{transform:translateX(-50%) scale(.92);opacity:.5}50%{transform:translateX(-50%) scale(1.18);opacity:1}}
 .linea-chakras{height:4px;width:100%;border-radius:99px;margin-top:60px;opacity:.55;
   background:linear-gradient(90deg,var(--ck-corona),var(--ck-tercer-ojo),var(--ck-garganta),var(--ck-corazon),var(--ck-plexo),var(--ck-sacro),var(--ck-raiz))}
 
@@ -432,10 +432,10 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   .hero{padding:92px 0 36px}
   .hero-visual{display:none}
   .hero-aura-movil{
-    display:block;position:absolute;top:4%;left:50%;z-index:0;pointer-events:none;
-    width:130vw;max-width:560px;aspect-ratio:1;border-radius:50%;filter:blur(8px);
-    background:radial-gradient(circle,rgba(185,167,217,.5),rgba(232,169,184,.28) 45%,transparent 70%);
-    animation:respirar-centrado 8s ease-in-out infinite;
+    display:block;position:absolute;top:2%;left:50%;z-index:0;pointer-events:none;
+    width:135vw;max-width:580px;aspect-ratio:1;border-radius:50%;filter:blur(4px);
+    background:radial-gradient(circle,rgba(142,92,194,.55),rgba(232,169,184,.42) 45%,transparent 72%);
+    animation:respirar-centrado 7s ease-in-out infinite;
   }
   .hero h1{font-size:clamp(2rem,8.5vw,2.6rem);margin-bottom:16px}
   .hero-sub{font-size:1.02rem;margin-bottom:26px}
