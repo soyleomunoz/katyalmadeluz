@@ -101,10 +101,17 @@ section>.contenedor{position:relative;z-index:1}
   position:fixed;top:0;left:0;right:0;z-index:1000;
   padding:14px 0;transition:all .35s ease;background:transparent;
 }
-.navbar.con-scroll{background:rgba(255,253,249,.92);backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(77,58,80,.08);padding:8px 0}
-/* Con el menú móvil abierto se quita el backdrop-filter: convierte a la navbar
-   en containing block y rompe el position:fixed del menú de pantalla completa */
-.navbar.menu-abierto{background:transparent;backdrop-filter:none;box-shadow:none}
+/* El fondo translúcido con blur vive en un pseudo-elemento: si el backdrop-filter
+   estuviera en la navbar misma, la convertiría en containing block y rompería
+   el position:fixed del menú móvil de pantalla completa */
+.navbar::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:rgba(255,253,249,.92);backdrop-filter:blur(12px);
+  box-shadow:0 4px 20px rgba(77,58,80,.08);
+  opacity:0;transition:opacity .35s ease;
+}
+.navbar.con-scroll{padding:8px 0}
+.navbar.con-scroll::before{opacity:1}
 .nav-contenido{display:flex;align-items:center;justify-content:space-between}
 .nav-marca{display:flex;align-items:center;gap:12px;text-decoration:none}
 .nav-marca img{width:52px;height:52px;object-fit:contain}
@@ -1018,14 +1025,12 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 
   hamburguesa.addEventListener('click', function(){
     var abierto = navLinks.classList.toggle('abierto');
-    navbar.classList.toggle('menu-abierto', abierto);
     hamburguesa.setAttribute('aria-expanded', abierto);
     hamburguesa.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
   });
   navLinks.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){
       navLinks.classList.remove('abierto');
-      navbar.classList.remove('menu-abierto');
       hamburguesa.setAttribute('aria-expanded','false');
     });
   });
