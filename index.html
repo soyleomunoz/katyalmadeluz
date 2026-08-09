@@ -15,6 +15,9 @@
 <meta name="twitter:title" content="Reiki & Healing by Katy Rivera">
 <meta name="twitter:description" content="Reiki terapéutico a domicilio en Santiago de Chile. Regálate este momento, tu energía te lo agradecerá.">
 <link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --lila:#B9A7D9;
@@ -39,8 +42,8 @@
   --grad-espiritual:linear-gradient(135deg,#8E5CC2,#B9A7D9 55%,#F3C9D2);
   --sombra-suave:0 10px 30px rgba(128,98,154,.12);
   --radio:22px;
-  --fuente-titulo:Georgia,'Times New Roman',serif;
-  --fuente-texto:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --fuente-titulo:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --fuente-texto:'Nunito Sans','Segoe UI',system-ui,-apple-system,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -52,14 +55,15 @@ body{
   overflow-x:hidden;
 }
 img{max-width:100%;display:block}
-h1,h2,h3{font-family:var(--fuente-titulo);font-weight:600;line-height:1.2;color:var(--ciruela)}
+h1,h2,h3{font-family:var(--fuente-titulo);font-weight:600;line-height:1.15;color:var(--ciruela);text-wrap:balance;letter-spacing:-.01em}
+p{text-wrap:pretty}
 .contenedor{width:min(1120px,92%);margin:0 auto}
 section{position:relative;padding:90px 0}
 .etiqueta{
   display:inline-block;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
   color:var(--lila-profundo);margin-bottom:14px;font-weight:600;
 }
-.titulo-seccion{font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:18px}
+.titulo-seccion{font-size:clamp(2.2rem,4.4vw,3.1rem);margin-bottom:18px}
 .intro-seccion{color:var(--texto-sec);max-width:640px;font-size:1.05rem}
 .centro{text-align:center}
 .centro .intro-seccion{margin:0 auto}
@@ -77,7 +81,13 @@ section{position:relative;padding:90px 0}
 .btn-principal:hover,.btn-principal:focus-visible{background:var(--rosa);color:var(--ciruela);transform:translateY(-3px);box-shadow:0 12px 28px rgba(232,169,184,.5)}
 .btn-secundario{background:rgba(255,255,255,.7);color:var(--lila-profundo);border:1px solid rgba(128,98,154,.4)}
 .btn-secundario:hover,.btn-secundario:focus-visible{background:var(--rosa-pastel);border-color:var(--rosa);transform:translateY(-3px)}
+.btn:active{transform:translateY(0) scale(.97)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--violeta);outline-offset:3px}
+.enlace-saltar{
+  position:absolute;top:-60px;left:16px;z-index:2000;padding:12px 22px;border-radius:0 0 14px 14px;
+  background:var(--lila-profundo);color:#fff;text-decoration:none;font-weight:700;transition:top .3s ease;
+}
+.enlace-saltar:focus{top:0}
 
 /* ===== Auras decorativas ===== */
 .aura{position:absolute;border-radius:50%;pointer-events:none;filter:blur(10px);z-index:0}
@@ -99,8 +109,14 @@ section>.contenedor{position:relative;z-index:1}
 .nav-marca-texto strong{display:block;font-size:1.05rem;letter-spacing:.04em}
 .nav-marca-texto span{font-size:.72rem;color:var(--lila-profundo);letter-spacing:.08em}
 .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
-.nav-links a{color:var(--ciruela);text-decoration:none;font-size:.95rem;transition:color .25s}
+.nav-links a{color:var(--ciruela);text-decoration:none;font-size:.95rem;transition:color .25s;position:relative}
 .nav-links a:hover{color:var(--violeta)}
+.nav-links a:not(.btn).activo{color:var(--violeta)}
+.nav-links a:not(.btn)::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-6px;height:2px;border-radius:2px;
+  background:var(--grad-principal);transition:right .3s ease;
+}
+.nav-links a:not(.btn).activo::after,.nav-links a:not(.btn):hover::after{right:0}
 .nav-links a.btn-principal{color:#fff}
 .nav-links a.btn-principal:hover{color:var(--ciruela)}
 .nav-links .btn{padding:10px 22px;font-size:.9rem}
@@ -117,7 +133,7 @@ section>.contenedor{position:relative;z-index:1}
   overflow:hidden;
 }
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
-.hero h1{font-size:clamp(2.4rem,5.5vw,3.8rem);margin-bottom:20px}
+.hero h1{font-size:clamp(2.7rem,6vw,4.4rem);font-weight:700;margin-bottom:20px}
 .hero h1 .acento{background:var(--grad-espiritual);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-sub{font-size:1.15rem;color:var(--texto-sec);max-width:520px;margin-bottom:32px}
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:36px}
@@ -192,6 +208,9 @@ section>.contenedor{position:relative;z-index:1}
   transition:transform .35s ease;
 }
 .chakra:hover{transform:translateY(-6px)}
+.chakra:active{transform:translateY(-2px) scale(.98)}
+.chakra:hover .chakra-orbe{box-shadow:0 0 0 6px rgba(232,195,74,.35),0 0 34px var(--ck,#B9A7D9)}
+.chakra .chakra-orbe{transition:box-shadow .35s ease}
 button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 .chakra-orbe{
   width:56px;height:56px;border-radius:50%;margin:0 auto 14px;position:relative;
@@ -283,7 +302,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   padding:6px 18px;border-radius:99px;white-space:nowrap;
 }
 .precio-card h3{font-size:1.15rem;margin-bottom:10px;color:var(--lila-profundo)}
-.precio-valor{font-family:var(--fuente-titulo);font-size:2.4rem;color:var(--ciruela);margin-bottom:6px}
+.precio-valor{font-family:var(--fuente-titulo);font-weight:700;font-size:2.8rem;color:var(--ciruela);margin-bottom:6px}
 .precio-detalle{font-size:.9rem;color:var(--texto-sec);margin-bottom:24px;flex-grow:1}
 .precio-incluye{list-style:none;margin:0 0 26px;text-align:left;font-size:.92rem;color:var(--texto-sec)}
 .precio-incluye li{padding:7px 0;display:flex;gap:10px;align-items:center}
@@ -385,6 +404,8 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   opacity:0;transform:scale(.4);transition:opacity .5s ease,transform .5s cubic-bezier(.34,1.56,.64,1);
 }
 .btn-whatsapp.visible{opacity:1;transform:scale(1)}
+.btn-whatsapp:active{transform:scale(.92)}
+.btn-subir:active{transform:scale(.92)}
 .btn-whatsapp svg{width:32px;height:32px;fill:#fff}
 .btn-whatsapp::before{
   content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;
@@ -458,7 +479,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
     text-shadow:0 0 12px rgba(232,195,74,.95);
     animation:destello-brilla 4s ease-in-out infinite;
   }
-  .hero h1{font-size:clamp(2rem,8.5vw,2.6rem);margin-bottom:16px}
+  .hero h1{font-size:clamp(2.3rem,9.5vw,3rem);margin-bottom:16px}
   .hero-sub{font-size:1.02rem;margin-bottom:26px}
   .hero-datos{flex-direction:column;gap:10px;align-items:flex-start}
   .linea-chakras{margin-top:38px}
@@ -489,6 +510,8 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 </style>
 </head>
 <body>
+
+<a href="#inicio" class="enlace-saltar">Saltar al contenido</a>
 
 <!-- ===== NAVBAR ===== -->
 <header class="navbar" id="navbar">
@@ -1064,6 +1087,24 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
       campo.closest('.campo').classList.remove('invalido');
     });
   });
+
+  // ===== Enlace activo en la navegación (scroll-spy) =====
+  var enlacesNav = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]:not(.btn)'));
+  var seccionesNav = enlacesNav.map(function(a){
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+  if('IntersectionObserver' in window && seccionesNav.length){
+    var espia = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if(e.isIntersecting){
+          enlacesNav.forEach(function(a){
+            a.classList.toggle('activo', a.getAttribute('href') === '#' + e.target.id);
+          });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    seccionesNav.forEach(function(s){ espia.observe(s); });
+  }
 
   // ===== Modal de chakras =====
   var modal = document.getElementById('modalChakra');
