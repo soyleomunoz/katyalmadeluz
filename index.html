@@ -392,11 +392,23 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   box-shadow:0 14px 34px rgba(128,98,154,.22);
 }
 .autocompletar-lista li{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:10px 14px;border-radius:10px;cursor:pointer;font-size:.95rem;color:var(--ciruela);
   transition:background .2s ease;
 }
 .autocompletar-lista li:hover,.autocompletar-lista li.resaltado{background:#F3EFF9;color:var(--lila-profundo)}
 .autocompletar-lista li strong{color:var(--violeta)}
+.chip-enter{
+  display:none;flex-shrink:0;padding:2px 8px;border-radius:6px;
+  font-size:.7rem;font-weight:600;color:var(--lila-profundo);
+  background:#fff;border:1px solid rgba(128,98,154,.3);
+  box-shadow:0 1px 0 rgba(128,98,154,.25);
+}
+.autocompletar-lista li:only-child .chip-enter,
+.autocompletar-lista li:hover .chip-enter,
+.autocompletar-lista li.resaltado .chip-enter{display:inline-block}
+/* Con el mouse sobre la lista, el hover manda: solo un chip visible a la vez */
+.autocompletar-lista:hover li.resaltado:not(:hover) .chip-enter{display:none}
 .form-nota{font-size:.8rem;color:var(--texto-sec);margin-top:14px;text-align:center}
 
 /* ===== Footer ===== */
@@ -1168,7 +1180,15 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
     coincidencias.forEach(function(c){
       var li = document.createElement('li');
       li.setAttribute('role','option');
-      li.textContent = c;
+      li.setAttribute('data-comuna', c);
+      var nombre = document.createElement('span');
+      nombre.textContent = c;
+      var chip = document.createElement('span');
+      chip.className = 'chip-enter';
+      chip.setAttribute('aria-hidden','true');
+      chip.textContent = '↵ Enter';
+      li.appendChild(nombre);
+      li.appendChild(chip);
       // mousedown en vez de click para que se dispare antes que el blur del input
       li.addEventListener('mousedown', function(ev){
         ev.preventDefault();
@@ -1198,10 +1218,10 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
       // Se evita el envío del formulario; con la lista cerrada, Enter envía.
       if(indiceResaltado > -1){
         ev.preventDefault();
-        elegirComuna(items[indiceResaltado].textContent);
+        elegirComuna(items[indiceResaltado].getAttribute('data-comuna'));
       } else if(items.length === 1){
         ev.preventDefault();
-        elegirComuna(items[0].textContent);
+        elegirComuna(items[0].getAttribute('data-comuna'));
       }
     } else if(ev.key === 'Escape'){
       cerrarLista();
