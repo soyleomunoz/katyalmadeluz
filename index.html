@@ -9,12 +9,12 @@
 <meta property="og:title" content="Reiki & Healing by Katy Rivera">
 <meta property="og:description" content="Reiki terapéutico a domicilio en Santiago. Equilibra tu energía, libera el estrés y conecta con tu paz interior. Sesiones de 30 minutos con aromaterapia.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="logo.png">
+<meta property="og:image" content="img/logo.png">
 <meta property="og:locale" content="es_CL">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Reiki & Healing by Katy Rivera">
 <meta name="twitter:description" content="Reiki terapéutico a domicilio en Santiago de Chile. Regálate este momento, tu energía te lo agradecerá.">
-<link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/png" href="img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -174,23 +174,20 @@ section>.contenedor{position:relative;z-index:1}
 
 /* ===== Qué es Reiki ===== */
 .que-es{background:var(--blanco-calido)}
-.que-es-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.que-es-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:stretch}
+.que-es-texto{display:flex;flex-direction:column}
 .que-es-texto p{color:var(--texto-sec);margin-bottom:16px}
 .que-es-nota{
-  margin-top:22px;padding:18px 22px;border-left:3px solid var(--lila);
+  margin-top:auto;padding:18px 22px;border-left:3px solid var(--lila);
   background:#F3EFF9;border-radius:0 var(--radio) var(--radio) 0;
   color:var(--lila-profundo);font-size:.95rem;
 }
-.mandala{position:relative;display:flex;justify-content:center;align-items:center;min-height:340px}
-.mandala-circulo{
-  width:300px;height:300px;border-radius:50%;position:relative;
-  background:radial-gradient(circle,rgba(185,167,217,.35),rgba(243,201,210,.2) 55%,transparent 75%);
-  display:flex;justify-content:center;align-items:center;
+.que-es-foto{display:flex;justify-content:center;align-items:flex-start}
+.que-es-foto img{
+  width:min(420px,100%);height:auto;
+  border-radius:var(--radio);border:1px solid rgba(185,167,217,.35);
+  box-shadow:0 18px 40px rgba(128,98,154,.2);
 }
-.mandala-circulo::before{content:"";position:absolute;inset:18px;border-radius:50%;border:1.5px solid rgba(232,195,74,.55)}
-.mandala-circulo::after{content:"";position:absolute;inset:38px;border-radius:50%;border:1px dashed rgba(128,98,154,.4);animation:girar 40s linear infinite}
-@keyframes girar{to{transform:rotate(360deg)}}
-.mandala-loto{font-size:4.5rem;filter:drop-shadow(0 6px 16px rgba(142,92,194,.35));animation:respirar 6s ease-in-out infinite}
 
 /* ===== Beneficios ===== */
 .beneficios{background:linear-gradient(180deg,#F7F2FA,#FCEEF3)}
@@ -492,6 +489,8 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   .hero{padding-top:120px}
   .grid-beneficios,.sesion-grid,.grid-precios{grid-template-columns:1fr 1fr}
   .grid-chakras{grid-template-columns:repeat(4,1fr)}
+  .que-es-foto img{width:min(380px,100%);height:auto}
+  .que-es-nota{margin-top:22px}
   .pasos{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
 }
@@ -554,7 +553,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 <header class="navbar" id="navbar">
   <div class="contenedor nav-contenido">
     <a href="#inicio" class="nav-marca" aria-label="Reiki & Healing by Katy Rivera — inicio">
-      <img src="logo.png" alt="Logo Reiki & Healing by Katy Rivera">
+      <img src="img/logo.png" alt="Logo Reiki & Healing by Katy Rivera">
       <span class="nav-marca-texto">
         <strong>Reiki &amp; Healing</strong>
         <span>by Katy Rivera</span>
@@ -613,7 +612,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
       </div>
       <div class="hero-visual revelar">
         <span class="hero-halo" aria-hidden="true"></span>
-        <img src="logo.png" alt="Ilustración de la marca Reiki & Healing: flor de loto, manos en oración y los siete chakras rodeados de un aura lila" width="440">
+        <img src="img/logo.png" alt="Ilustración de la marca Reiki & Healing: flor de loto, manos en oración y los siete chakras rodeados de un aura lila" width="440">
       </div>
     </div>
     <div class="linea-chakras" aria-hidden="true"></div>
@@ -632,10 +631,8 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
         <p class="revelar revelar-retraso-1">Muchas personas lo experimentan como un momento de descanso reparador: una pausa para respirar, soltar tensiones y reconectar consigo mismas en medio de las exigencias de la vida cotidiana.</p>
         <p class="que-es-nota revelar revelar-retraso-2">🌸 El Reiki es una práctica complementaria de bienestar y relajación. No reemplaza tratamientos médicos ni psicológicos.</p>
       </div>
-      <div class="mandala revelar revelar-retraso-1" aria-hidden="true">
-        <div class="mandala-circulo">
-          <span class="mandala-loto">🪷</span>
-        </div>
+      <div class="que-es-foto revelar revelar-retraso-1">
+        <img src="img/katy2.png" alt="Katy Rivera realizando una sesión de Reiki">
       </div>
     </div>
   </div>
@@ -962,7 +959,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   <div class="contenedor">
     <div class="footer-grid">
       <div class="footer-marca">
-        <img src="logo.png" alt="Logo Reiki & Healing by Katy Rivera">
+        <img src="img/logo.png" alt="Logo Reiki & Healing by Katy Rivera">
         <h3>Reiki &amp; Healing</h3>
         <p class="sub">BY KATY RIVERA</p>
         <p>Sesiones de Reiki terapéutico a domicilio en Santiago. Un espacio de relajación, equilibrio energético y conexión interior, con aromaterapia incluida.</p>
