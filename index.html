@@ -384,12 +384,25 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 .campo.invalido input,.campo.invalido select,.campo.invalido textarea{border-color:var(--ck-raiz)}
 .campo.invalido .error-msg{display:block}
 .formulario .btn{width:100%}
+.autocompletar{position:relative}
+.autocompletar-lista{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:50;
+  list-style:none;margin:0;padding:8px;max-height:230px;overflow-y:auto;
+  background:#FFFDF9;border:1px solid rgba(185,167,217,.45);border-radius:16px;
+  box-shadow:0 14px 34px rgba(128,98,154,.22);
+}
+.autocompletar-lista li{
+  padding:10px 14px;border-radius:10px;cursor:pointer;font-size:.95rem;color:var(--ciruela);
+  transition:background .2s ease;
+}
+.autocompletar-lista li:hover,.autocompletar-lista li.resaltado{background:#F3EFF9;color:var(--lila-profundo)}
+.autocompletar-lista li strong{color:var(--violeta)}
 .form-nota{font-size:.8rem;color:var(--texto-sec);margin-top:14px;text-align:center}
 
 /* ===== Footer ===== */
 .footer{background:#3B2C44;color:rgba(255,255,255,.82);padding:70px 0 0}
 .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:50px;padding-bottom:50px}
-.footer-marca img{width:88px;margin-bottom:16px;filter:drop-shadow(0 0 14px rgba(185,167,217,.4))}
+.footer-marca img{width:88px;margin-bottom:16px;filter:drop-shadow(0 0 14px rgba(185,167,217,.4));animation:flotar 7s ease-in-out infinite}
 .footer-marca h3{color:#fff;font-size:1.25rem;margin-bottom:4px}
 .footer-marca .sub{color:var(--lila);font-size:.85rem;letter-spacing:.08em;margin-bottom:14px}
 .footer-marca p{font-size:.92rem;color:rgba(255,255,255,.65)}
@@ -542,7 +555,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
         <li><a href="#chakras">Chakras</a></li>
         <li><a href="#precios">Precios</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="#" class="btn btn-principal js-whatsapp">Agenda tu sesión</a></li>
+        <li><a href="#contacto" class="btn btn-principal js-ir-formulario">Agenda tu sesión</a></li>
       </ul>
     </nav>
     <button class="nav-hamburguesa" id="navHamburguesa" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
@@ -577,7 +590,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
         <h1 class="revelar">Terapia de <span class="acento">Reiki</span> en la comodidad de tu hogar</h1>
         <p class="hero-sub revelar revelar-retraso-1">Equilibra tu energía, libera el estrés y conecta con tu paz interior. Un momento para ti, con aromaterapia incluida, sin salir de casa.</p>
         <div class="hero-ctas revelar revelar-retraso-2">
-          <a href="#" class="btn btn-principal js-whatsapp">🪷 Agendar mi sesión</a>
+          <a href="#contacto" class="btn btn-principal js-ir-formulario">🪷 Agendar mi sesión</a>
           <a href="#que-es" class="btn btn-secundario">Conocer más</a>
         </div>
         <div class="hero-datos revelar revelar-retraso-3">
@@ -801,7 +814,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
           <li>Aromaterapia incluida</li>
           <li>A domicilio</li>
         </ul>
-        <a href="#" class="btn btn-principal js-whatsapp" data-plan="una sesión individual">Agendar sesión</a>
+        <a href="#contacto" class="btn btn-principal js-ir-formulario js-elegir-plan" data-plan-valor="una sesión individual ($20.000)">Agendar sesión</a>
       </article>
       <article class="precio-card destacado revelar revelar-retraso-1">
         <span class="precio-badge">El favorito 💜</span>
@@ -813,7 +826,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
           <li>Aromaterapia incluida</li>
           <li>A domicilio</li>
         </ul>
-        <a href="#" class="btn btn-principal js-whatsapp" data-plan="el pack de 4 sesiones">Quiero el pack</a>
+        <a href="#contacto" class="btn btn-principal js-ir-formulario js-elegir-plan" data-plan-valor="el pack de 4 sesiones ($68.000)">Quiero el pack</a>
       </article>
       <article class="precio-card revelar revelar-retraso-2">
         <h3>Desde la 5ª sesión</h3>
@@ -824,7 +837,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
           <li>Aromaterapia incluida</li>
           <li>A domicilio</li>
         </ul>
-        <a href="#" class="btn btn-principal js-whatsapp" data-plan="sesiones con precio preferencial (desde la 5ª)">Continuar mi camino</a>
+        <a href="#contacto" class="btn btn-principal js-ir-formulario js-elegir-plan" data-plan-valor="información sobre el precio preferencial desde la 5ª sesión">Continuar mi camino</a>
       </article>
     </div>
   </div>
@@ -871,7 +884,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   <div class="contenedor">
     <h2 class="revelar">“Regálate este momento.”</h2>
     <p class="revelar revelar-retraso-1">Tu energía te lo agradecerá. Un espacio para ti, en la comodidad de tu hogar.</p>
-    <a href="#" class="btn btn-principal js-whatsapp revelar revelar-retraso-2">🪷 Agendar mi sesión</a>
+    <a href="#contacto" class="btn btn-principal js-ir-formulario revelar revelar-retraso-2">🪷 Agendar mi sesión</a>
   </div>
 </section>
 
@@ -913,7 +926,11 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
         </div>
         <div class="campo">
           <label for="fComuna">Comuna (opcional)</label>
-          <input type="text" id="fComuna" name="comuna" autocomplete="address-level2" placeholder="Para confirmar cobertura">
+          <div class="autocompletar">
+            <input type="text" id="fComuna" name="comuna" autocomplete="off" placeholder="Para confirmar cobertura"
+              role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="listaComunas">
+            <ul class="autocompletar-lista" id="listaComunas" role="listbox" aria-label="Sugerencias de comunas" hidden></ul>
+          </div>
         </div>
         <div class="campo">
           <label for="fMensaje">Mensaje (opcional)</label>
@@ -1005,13 +1022,29 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 
   // Enlaces con la clase js-whatsapp
   document.querySelectorAll('.js-whatsapp').forEach(function(el){
-    var plan = el.getAttribute('data-plan');
-    var msg = plan
-      ? 'Hola Katy 🌸 Me interesa ' + plan + ' de Reiki a domicilio. ¿Tienes disponibilidad?'
-      : null;
-    el.setAttribute('href', urlWhatsapp(msg));
+    el.setAttribute('href', urlWhatsapp(null));
     el.setAttribute('target','_blank');
     el.setAttribute('rel','noopener');
+  });
+
+  // Botones que llevan al formulario: desplazan hasta el contacto y dejan el
+  // foco en el campo de nombre. Se evita la navegación por ancla porque esta
+  // ocurre después del clic y le quitaría el foco al campo.
+  document.querySelectorAll('.js-ir-formulario').forEach(function(el){
+    el.addEventListener('click', function(ev){
+      ev.preventDefault();
+      document.getElementById('contacto').scrollIntoView({behavior:'smooth'});
+      document.getElementById('fNombre').focus({preventScroll:true});
+    });
+  });
+
+  // Botones de la lista de valores: llevan al formulario con el plan preseleccionado
+  document.querySelectorAll('.js-elegir-plan').forEach(function(el){
+    el.addEventListener('click', function(){
+      var selectPlan = document.getElementById('fPlan');
+      selectPlan.value = el.getAttribute('data-plan-valor');
+      selectPlan.closest('.campo').classList.remove('invalido');
+    });
   });
 
   // ===== Navbar =====
@@ -1098,6 +1131,81 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
     campo.addEventListener('input', function(){
       campo.closest('.campo').classList.remove('invalido');
     });
+  });
+
+  // ===== Autocompletado de comunas =====
+  var COMUNAS = ['Cerrillos','Cerro Navia','Conchalí','El Bosque','Estación Central','Huechuraba',
+    'Independencia','La Cisterna','La Florida','La Granja','La Pintana','La Reina','Las Condes',
+    'Lo Barnechea','Lo Espejo','Lo Prado','Macul','Maipú','Ñuñoa','Pedro Aguirre Cerda','Peñalolén',
+    'Providencia','Pudahuel','Puente Alto','Quilicura','Quinta Normal','Recoleta','Renca',
+    'San Bernardo','San Joaquín','San Miguel','San Ramón','Santiago Centro','Vitacura'];
+  var inputComuna = document.getElementById('fComuna');
+  var listaComunas = document.getElementById('listaComunas');
+  var indiceResaltado = -1;
+
+  function normalizar(t){
+    return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  }
+  function cerrarLista(){
+    listaComunas.hidden = true;
+    listaComunas.innerHTML = '';
+    inputComuna.setAttribute('aria-expanded','false');
+    indiceResaltado = -1;
+  }
+  function elegirComuna(nombre){
+    inputComuna.value = nombre;
+    cerrarLista();
+    inputComuna.focus();
+  }
+  function filtrarComunas(){
+    var texto = normalizar(inputComuna.value.trim());
+    if(!texto){ cerrarLista(); return; }
+    var coincidencias = COMUNAS.filter(function(c){
+      return normalizar(c).indexOf(texto) !== -1;
+    });
+    if(!coincidencias.length){ cerrarLista(); return; }
+    listaComunas.innerHTML = '';
+    coincidencias.forEach(function(c){
+      var li = document.createElement('li');
+      li.setAttribute('role','option');
+      li.textContent = c;
+      // mousedown en vez de click para que se dispare antes que el blur del input
+      li.addEventListener('mousedown', function(ev){
+        ev.preventDefault();
+        elegirComuna(c);
+      });
+      listaComunas.appendChild(li);
+    });
+    listaComunas.hidden = false;
+    inputComuna.setAttribute('aria-expanded','true');
+    indiceResaltado = -1;
+  }
+  inputComuna.addEventListener('input', filtrarComunas);
+  inputComuna.addEventListener('blur', function(){ setTimeout(cerrarLista, 120); });
+  inputComuna.addEventListener('keydown', function(ev){
+    if(listaComunas.hidden) return;
+    var items = listaComunas.querySelectorAll('li');
+    if(ev.key === 'ArrowDown' || ev.key === 'ArrowUp'){
+      ev.preventDefault();
+      indiceResaltado += (ev.key === 'ArrowDown' ? 1 : -1);
+      if(indiceResaltado < 0) indiceResaltado = items.length - 1;
+      if(indiceResaltado >= items.length) indiceResaltado = 0;
+      items.forEach(function(li,i){ li.classList.toggle('resaltado', i === indiceResaltado); });
+      items[indiceResaltado].scrollIntoView({block:'nearest'});
+    } else if(ev.key === 'Enter'){
+      // Con la lista visible, Enter elige: el ítem resaltado o, si no hay
+      // ninguno resaltado y queda una sola sugerencia, esa única comuna.
+      // Se evita el envío del formulario; con la lista cerrada, Enter envía.
+      if(indiceResaltado > -1){
+        ev.preventDefault();
+        elegirComuna(items[indiceResaltado].textContent);
+      } else if(items.length === 1){
+        ev.preventDefault();
+        elegirComuna(items[0].textContent);
+      }
+    } else if(ev.key === 'Escape'){
+      cerrarLista();
+    }
   });
 
   // ===== Enlace activo en la navegación (scroll-spy) =====
