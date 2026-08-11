@@ -407,6 +407,13 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
 /* Con el mouse sobre la lista, el hover manda: solo un chip visible a la vez */
 .autocompletar-lista:hover li.resaltado:not(:hover) .chip-enter{display:none}
 .form-nota{font-size:.8rem;color:var(--texto-sec);margin-top:14px;text-align:center}
+.nota-cobertura{
+  display:none;align-items:flex-start;gap:8px;margin-top:8px;
+  padding:9px 12px;border-radius:12px;font-size:.82rem;line-height:1.45;
+  color:var(--lila-profundo);background:#F3EFF9;border:1px solid rgba(185,167,217,.45);
+}
+.nota-cobertura.visible{display:flex}
+.nota-cobertura::before{content:'✦';flex-shrink:0;font-size:.75rem;margin-top:2px;color:var(--violeta)}
 
 /* ===== Footer ===== */
 .footer{background:#3B2C44;color:rgba(255,255,255,.82);padding:70px 0 0}
@@ -940,6 +947,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
               role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="listaComunas">
             <ul class="autocompletar-lista" id="listaComunas" role="listbox" aria-label="Sugerencias de comunas" hidden></ul>
           </div>
+          <p class="nota-cobertura" id="notaCobertura" role="status" aria-live="polite"></p>
         </div>
         <div class="campo">
           <label for="fMensaje">Mensaje (opcional)</label>
@@ -1148,9 +1156,37 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
     'Lo Barnechea','Lo Espejo','Lo Prado','Macul','Maipú','Ñuñoa','Pedro Aguirre Cerda','Peñalolén',
     'Providencia','Pudahuel','Puente Alto','Quilicura','Quinta Normal','Recoleta','Renca',
     'San Bernardo','San Joaquín','San Miguel','San Ramón','Santiago Centro','Vitacura'];
+  // Ubicación respecto al anillo de Américo Vespucio: 'fuera' o 'parcial';
+  // las comunas que no figuran aquí están completamente dentro del anillo.
+  var COMUNAS_VESPUCIO = {
+    'El Bosque':'fuera','Huechuraba':'fuera','La Pintana':'fuera','Lo Barnechea':'fuera',
+    'Maipú':'fuera','Pudahuel':'fuera','Puente Alto':'fuera','Quilicura':'fuera','San Bernardo':'fuera',
+    'Cerrillos':'parcial','Conchalí':'parcial','La Cisterna':'parcial','La Florida':'parcial',
+    'La Granja':'parcial','La Reina':'parcial','Las Condes':'parcial','Lo Espejo':'parcial',
+    'Peñalolén':'parcial','Renca':'parcial','Vitacura':'parcial'
+  };
   var inputComuna = document.getElementById('fComuna');
   var listaComunas = document.getElementById('listaComunas');
+  var notaCobertura = document.getElementById('notaCobertura');
   var indiceResaltado = -1;
+
+  function actualizarNotaCobertura(){
+    var texto = normalizar(inputComuna.value.trim());
+    var estado = null;
+    COMUNAS.forEach(function(c){
+      if(normalizar(c) === texto) estado = COMUNAS_VESPUCIO[c] || 'dentro';
+    });
+    if(estado === 'fuera'){
+      notaCobertura.textContent = 'Esta comuna está fuera del anillo de Américo Vespucio, por lo que el servicio incluirá un pequeño recargo.';
+      notaCobertura.classList.add('visible');
+    } else if(estado === 'parcial'){
+      notaCobertura.textContent = 'Parte de esta comuna queda fuera del anillo de Américo Vespucio, por lo que es posible que el servicio tenga un pequeño recargo según tu ubicación.';
+      notaCobertura.classList.add('visible');
+    } else {
+      notaCobertura.textContent = '';
+      notaCobertura.classList.remove('visible');
+    }
+  }
 
   function normalizar(t){
     return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
@@ -1164,6 +1200,7 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
   function elegirComuna(nombre){
     inputComuna.value = nombre;
     cerrarLista();
+    actualizarNotaCobertura();
     inputComuna.focus();
   }
   function filtrarComunas(){
@@ -1197,7 +1234,10 @@ button.chakra{cursor:pointer;font-family:var(--fuente-texto);width:100%}
     inputComuna.setAttribute('aria-expanded','true');
     indiceResaltado = -1;
   }
-  inputComuna.addEventListener('input', filtrarComunas);
+  inputComuna.addEventListener('input', function(){
+    filtrarComunas();
+    actualizarNotaCobertura();
+  });
   inputComuna.addEventListener('blur', function(){ setTimeout(cerrarLista, 120); });
   inputComuna.addEventListener('keydown', function(ev){
     if(listaComunas.hidden) return;
