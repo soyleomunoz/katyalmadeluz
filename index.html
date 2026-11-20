@@ -54,6 +54,10 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+/* Móvil: sin desplazamiento horizontal de la página (red de seguridad) */
+html,body{overflow-x:hidden;overscroll-behavior-x:none}
+html{touch-action:pan-y pinch-zoom}
+body{position:relative;width:100%}
 body{
   font-family:var(--fuente-texto);
   color:var(--ciruela);
